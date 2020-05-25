@@ -12,7 +12,7 @@
       MSGE DB 10, 13, ' GRADE : E $'
       MSGF DB 10, 13, ' GRADE : F $'
 
-      DISP MACRO MSG			                          ;For displaying any message
+      DISP MACRO MSG			                              ;For displaying any message
       MOV AH, 09H
       LEA DX, MSG
       INT 21H
@@ -20,21 +20,21 @@
 
 .CODE
 START:
-      MOV AX, @DATA			                            ;Initializing data segment
+      MOV AX, @DATA			                              ;Initializing data segment
       MOV DS, AX
 
       MOV AX, 03H
       INT 10H
 
-      MOV CH, 05H			                              ;Initializing counter value to 5
-      MOV DX, 0000H                                 ;Clearing the data segment
+      MOV CH, 05H			                                    ;Initializing counter value to 5
+      MOV DX, 0000H                                               ;Clearing the data segment
       LEA SI, STR1				                          
       L1: MOV BL, 00H
           CALL ACCEPT			                
-          MOV [SI], BL			                        ;Storing the entered value in the array
+          MOV [SI], BL			                              ;Storing the entered value in the array
           INC SI				              
           DEC CH				
-          JNZ L1				                            ;Iterative call for the loop if CH!=0
+          JNZ L1				                              ;Iterative call for the loop if CH!=0
 
       MOV BX, 0000H
       MOV AX, 0000H
@@ -42,7 +42,7 @@ START:
       LEA SI, STR1
 
       L2 : MOV AL, [SI]
-           ADD BX, AX			                          ;Summation of all the entered marks
+           ADD BX, AX			                              ;Summation of all the entered marks
            INC SI
            DEC CH
            JNZ L2
@@ -65,7 +65,7 @@ START:
       JLE L3
       ADD DL, 07H
 
-      L3 : MOV AH, 02H			                        ;Displaying MSB of the percentage
+      L3 : MOV AH, 02H			                              ;Displaying MSB of the percentage
            INT 21H
       
       MOV DL, BL
@@ -75,11 +75,11 @@ START:
       JLE L4
       ADD DL, 07H
       
-      L4 : MOV AH, 02H			                        ;Displaying LSB of the percentage
+      L4 : MOV AH, 02H			                              ;Displaying LSB of the percentage
            INT 21H
 
       MOV DL, '%'
-      MOV AH, 02H			                              ;Displaying the '%' symbol
+      MOV AH, 02H			                                    ;Displaying the '%' symbol
       INT 21H
       DISP MSGX
 
@@ -90,34 +90,34 @@ START:
 
       L_B : CMP BL, 80
             JLE L_C
-            DISP MSGB			                          ;Displays grade as B if percentage > 80
+            DISP MSGB			                              ;Displays grade as B if percentage > 80
             JMP EXIT
 
       L_C : CMP BL, 70
             JLE L_D
-            DISP MSGC			                          ;Displays grade as C if percentage > 70
+            DISP MSGC			                              ;Displays grade as C if percentage > 70
             JMP EXIT
 
       L_D : CMP BL, 60
             JLE L_E
-            DISP MSGD			                          ;Displays grade as D if percentage > 60
+            DISP MSGD			                              ;Displays grade as D if percentage > 60
             JMP EXIT
 
       L_E : CMP BL, 50
             JLE L_F
-            DISP MSGE			                          ;Displays grade as E if percentage > 50
+            DISP MSGE			                              ;Displays grade as E if percentage > 50
             JMP EXIT      
       
-      L_F : DISP MSGF			                          ;Displays grade as F if percentage <= 50
+      L_F : DISP MSGF			                              ;Displays grade as F if percentage <= 50
             JMP EXIT
 
       EXIT : MOV AH, 4CH			
              INT 21H
 
-      ACCEPT PROC NEAR			                        ;Procedure for accepting marks individually in hex
+      ACCEPT PROC NEAR			                              ;Procedure for accepting marks individually in hex
         DISP MSG1			
 
-        MOV AH, 01H			                            ;Accepting MSB of marks
+        MOV AH, 01H			                              ;Accepting MSB of marks
         INT 21H
 
         SUB AL, 30H
