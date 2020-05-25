@@ -1,2 +1,2 @@
-# Assembly_Language_Programming
-Basic ALP problems
+# Assembly Language Programming
+Basic 8086 ALP problems
